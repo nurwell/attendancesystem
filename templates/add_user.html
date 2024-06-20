@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Attendance System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('manage_users') }}">Manage Users</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('leave_requests') }}">Leave Requests</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('attendance_report') }}">Attendance Report</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('attendance_chart') }}">Attendance Chart</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <h2>Add User</h2>
+        <form action="{{ url_for('add_user') }}" method="POST">
+            <div class="form-group">
+                <label for="rfid">RFID:</label>
+                <input type="text" id="rfid" name="rfid" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select id="role" name="role" class="form-control">
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="department">Department:</label>
+                <input type="text" id="department" name="department" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Add User</button>
+        </form>
+        <a href="{{ url_for('manage_users') }}" class="btn btn-secondary btn-block mt-3">Go Back</a>
+    </div>
+</body>
+</html>

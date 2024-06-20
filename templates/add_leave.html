@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Leave Request</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Add Leave Request</h1>
+        <form action="{{ url_for('add_leave') }}" method="POST">
+            <div class="form-group">
+                <label for="start_date">Start Date:</label>
+                <input type="date" id="start_date" name="start_date" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="end_date">End Date:</label>
+                <input type="date" id="end_date" name="end_date" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="reason">Reason:</label>
+                <textarea id="reason" name="reason" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Leave Request</button>
+        </form>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary mt-3">Go Back</a>
+    </div>
+</body>
+</html>

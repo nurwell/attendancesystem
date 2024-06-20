@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .card {
+            margin-top: 20px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Attendance System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('manage_users') }}">Manage Users</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('leave_requests') }}">Leave Requests</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('attendance_report') }}">Attendance Report</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('attendance_chart') }}">Attendance Chart</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Employees</h5>
+                        <p class="card-text">{{ total_employees }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Present Today</h5>
+                        <p class="card-text">{{ present_today }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Pending Leaves</h5>
+                        <p class="card-text">{{ pending_leaves }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Department-wise Attendance</h5>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Department</th>
+                                    <th>Attendance Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dept in department_wise_attendance %}
+                                <tr>
+                                    <td>{{ dept[0] }}</td>
+                                    <td>{{ dept[1] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <a href="{{ url_for('export_attendance') }}" class="btn btn-primary btn-block">Export Attendance to CSV</a>
+            </div>
+            <div class="col-md-6">
+                <a href="{{ url_for('export_leave_requests') }}" class="btn btn-primary btn-block">Export Leave Requests to CSV</a>
+            </div>
+            <div class="col-md-6 mt-3">
+                <a href="{{ url_for('export_to_pdf') }}" class="btn btn-primary btn-block">Export Attendance to PDF</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

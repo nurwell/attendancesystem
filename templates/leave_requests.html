@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Requests</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Attendance System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('manage_users') }}">Manage Users</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('leave_requests') }}">Leave Requests</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('attendance_report') }}">Attendance Report</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('attendance_chart') }}">Attendance Chart</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <h2>Leave Requests</h2>
+        <a href="{{ url_for('add_leave') }}" class="btn btn-primary mb-3">Add Leave Request</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in requests %}
+                <tr>
+                    <td>{{ request[0] }}</td>
+                    <td>{{ request[1] }}</td>
+                    <td>{{ request[2] }}</td>
+                    <td>{{ request[3] }}</td>
+                    <td>{{ request[4] }}</td>
+                    <td>{{ request[5] }}</td>
+                    <td>
+                        {% if session.user_role == 'admin' %}
+                        <a href="{{ url_for('approve_leave', id=request[0]) }}" class="btn btn-success btn-sm">Approve</a>
+                        <a href="{{ url_for('reject_leave', id=request[0]) }}" class="btn btn-danger btn-sm">Reject</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
